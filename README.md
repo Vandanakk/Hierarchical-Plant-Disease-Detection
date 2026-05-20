@@ -20,21 +20,14 @@ A deep learning system for real-world plant disease detection using a hierarchic
 ---
 
 ## Pipeline Architecture
-Input Image
-│
-▼
-[Stage 1] YOLOv8s ──────────── Leaf localization + crop
-│
-▼
-[Stage 2] DINOv2-Species ───── Identifies plant species (95.8% acc)
-│
-▼
-[Stage 3] DINOv2-Disease ───── Diagnoses disease with species-aware masking
-│
-▼
-Output: Species + Disease Label
 
-**Key Innovation — Species-Aware Masking:** Constrains disease prediction to only biologically valid classes for the identified species, eliminating cross-species errors entirely with zero additional parameters.
+**Stage 1 → YOLOv8s** — Detects and crops the leaf region from input image
+
+**Stage 2 → DINOv2 Species Classifier** — Identifies plant species from full image (95.8% accuracy)
+
+**Stage 3 → DINOv2 Disease Classifier** — Diagnoses disease from cropped leaf, constrained by species-aware masking
+
+> **Key Innovation:** Species-aware masking forces predictions to only biologically valid disease classes for the identified species — eliminating cross-species errors entirely with zero additional parameters.
 
 ---
 
@@ -46,16 +39,14 @@ Output: Species + Disease Label
 - **Dataset:** PlantDoc v2
 - **Training:** Google Colab (Tesla T4)
 
----
+---## Repository Structure
 
-## Repository Structure
-├── yolo_code.ipynb          # Stage 1: YOLOv8 leaf detection training
-├── dino_code.ipynb          # Stage 2 & 3: DINOv2 classifier training
-├── Final_Model_code.ipynb   # End-to-end pipeline evaluation
-├── confusion_matrix.png     # Model evaluation results
-├── training_curves.png      # Training dynamics
-├── spot_check_test.png      # Sample pipeline outputs
-└── IEEE_Conference_Template__1_ (2).pdf  # Full research paper
+- `yolo_code.ipynb` — Stage 1: YOLOv8 training
+- `dino_code.ipynb` — Stage 2 & 3: DINOv2 training  
+- `Final_Model_code.ipynb` — End-to-end pipeline
+- `confusion_matrix.png` — Evaluation results
+- `training_curves.png` — Training dynamics
+- Research paper (PDF) included
 
 ---
 
@@ -70,3 +61,13 @@ Output: Species + Disease Label
 ## Research Paper
 
 Full methodology, results, and failure analysis available in the included IEEE-format paper.
+
+## Authors
+
+**Vandana Kushwaha** — Netaji Subhas University of Technology, Delhi
+**Srishti** — Netaji Subhas University of Technology, Delhi
+
+
+
+
+
